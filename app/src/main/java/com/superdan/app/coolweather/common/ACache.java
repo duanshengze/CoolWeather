@@ -1,5 +1,9 @@
 package com.superdan.app.coolweather.common;
 
+import android.content.Context;
+
+import com.superdan.app.coolweather.base.BaseApplication;
+
 import java.io.File;
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,6 +23,45 @@ public class ACache {
 
     private  ACacheManager mCache;
 
+
+
+    public static ACache get(Context cts){
+        return get()
+    }
+
+    public static  ACache get(Context cts,String cacheName){
+        File  f=new File(BaseApplication.cacheDir,cacheName);
+        return get(f,MAX_SIZE,MAX_COUNT);
+    }
+
+    public static ACache get(Context ctx,long max_size,int  max_count){
+        File f=new File(BaseApplication.cacheDir,"Data");
+        return get(f,max_size,max_count);
+    }
+
+    public static  ACache get(File f,long max_size,int max_count){
+
+
+
+
+    }
+
+    private  static  String myPid(){
+
+        return"-"+android.os.Process.myPid();
+
+    }
+
+    private ACache(File cacheDir,long max_size,int max_count){
+        if (!cacheDir.exists()&&!cacheDir.mkdirs()){
+
+
+            throw  new RuntimeException("can't make dirs in"+cacheDir.getAbsolutePath());
+        }
+
+
+
+    }
 
     /**
      *@author duanshengze
