@@ -26,7 +26,7 @@ public class ACache {
 
 
     public static ACache get(Context cts){
-        return get()
+        return get(cts,"Data");
     }
 
     public static  ACache get(Context cts,String cacheName){
@@ -41,7 +41,13 @@ public class ACache {
 
     public static  ACache get(File f,long max_size,int max_count){
 
+        ACache aCache=mInstanceMap.get(f.getAbsoluteFile()+myPid());
+        if(aCache==null){
 
+            aCache=new ACache(f,max_size,max_count);
+            mInstanceMap.put(f.getAbsolutePath()+myPid(),aCache);
+        }
+        return  aCache;
 
 
     }
@@ -58,9 +64,7 @@ public class ACache {
 
             throw  new RuntimeException("can't make dirs in"+cacheDir.getAbsolutePath());
         }
-
-
-
+        mCache=new ACacheManager(cacheDir,max_size,max_count);
     }
 
     /**

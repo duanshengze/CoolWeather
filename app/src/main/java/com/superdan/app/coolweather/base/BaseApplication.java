@@ -23,7 +23,6 @@ public class BaseApplication extends Application {
                 &&existSDCard()){
             //外部缓存地址
             cacheDir=getApplicationContext().getExternalCacheDir().toString();
-
         }else {
             //内部缓存
             cacheDir=getApplicationContext().getCacheDir().toString();
