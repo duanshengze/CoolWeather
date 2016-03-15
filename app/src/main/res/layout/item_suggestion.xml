@@ -6,7 +6,7 @@
     android:layout_margin="@dimen/cardview_margin"
     android:clickable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    card_view:cardCornerRadicus="3dp"
+    card_view:cardCornerRadius="3dp"
     card_view:cardElevation="2dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto">
@@ -30,16 +30,20 @@
             android:layout_height="32dp"
             android:src="@mipmap/icon_cloth"/>
             <LinearLayout
-                android:layout_gravity="center_vertical"
+
                 android:layout_marginLeft="64dp"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/cloth_brief"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="穿衣指数---"/>
             <TextView
+                android:id="@+id/cloth_txt"
+                android:textSize="12sp"
+                android:layout_marginTop="2dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#969696"
@@ -60,15 +64,19 @@
                 android:src="@mipmap/icon_sport"/>
             <LinearLayout
                 android:layout_marginLeft="64dp"
-                android:layout_gravity="center_vertical"
+
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/sport_brief"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="运动指数---"/>
                 <TextView
+                    android:id="@+id/sport_txt"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#969696"
@@ -89,15 +97,18 @@
                 android:src="@mipmap/icon_travel"/>
             <LinearLayout
                 android:layout_marginLeft="64dp"
-                android:layout_gravity="center_vertical"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/travel_brief"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="旅行指数---"/>
                 <TextView
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"
+                    android:id="@+id/travel_txt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#969696"
@@ -118,16 +129,19 @@
                 android:layout_height="32dp"
                 android:src="@mipmap/icon_flu"/>
             <LinearLayout
-                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="64dp"
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:id="@+id/flu_brief"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="感冒指数---"/>
                 <TextView
+                    android:id="@+id/flu_txt"
+                    android:textSize="12sp"
+                    android:layout_marginTop="2dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#969696"
