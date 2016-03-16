@@ -3,6 +3,7 @@ package com.superdan.app.coolweather.modules.adapter;
 import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -21,6 +22,8 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private static String TAG=WeatherAdapter.class.getSimpleName();
 
     private Context mContext;
+    private LayoutInflater mLayoutInflater;
+
     private  final  int TYPE_ONE=0;
     private  final  int TYPE_TWO=1;
     private  final  int TYPE_THREE=2;
@@ -31,6 +34,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public  WeatherAdapter(Context context,Weather weatherData){
         mContext=context;
+        mLayoutInflater=LayoutInflater.from(context);
         mWeatherData=weatherData;
         mSetting=Setting.getsInstance();
 
@@ -102,11 +106,12 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             }
         }
 
+
         /**
          *当日建议
          */
         class SuggestionViewHolder extends RecyclerView.ViewHolder{
-            private CardView cardView;
+            private  CardView cardView;
             private  TextView clothBrief;
             private  TextView clothTxt;
             private  TextView sportBrief;
@@ -135,11 +140,24 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         class   ForecastViewHolder extends  RecyclerView.ViewHolder{
             private LinearLayout forecastLinear;
-            private TextView[] forecastDate=new TextView[];
-            private TextView[] forecastDate=
+            private int size=mWeatherData.dailyForecast.size();
+            private TextView[] forecastDate=new TextView[size];
+            private TextView[] forecastTemp=new TextView[size];
+            private TextView[] forecastTxt=new TextView[size];
+            private ImageView[]forecastIcon=new ImageView[size];
+
 
             public  ForecastViewHolder(View itemView){
                 super(itemView);
+                forecastLinear=(LinearLayout)itemView.findViewById(R.id.forecast_linear);
+                for(int i=0;i<size;i++){
+                    View view=mLayoutInflater.inflate(R.layout.item_forecast_line,null);
+                    forecastDate[i]=(TextView)view.findViewById(R.id.forecast_date);
+                    forecastTemp[i]=(TextView)view.findViewById(R.id.forecast_temp);
+                    forecastTxt[i]=(TextView)view.findViewById(R.id.forecast_txt);
+                    forecastIcon[i]=(ImageView)view.findViewById(R.id.forecast_icon);
+                    forecastLinear.addView(view);
+                }
 
 
             }

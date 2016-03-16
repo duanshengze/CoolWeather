@@ -11,8 +11,8 @@
     card_view:cardCornerRadius="3dp"
     card_view:cardElevation="2dp">
     <LinearLayout
-        android:orientation="vertical"
         android:id="@+id/forecast_linear"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
