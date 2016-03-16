@@ -1,7 +1,7 @@
 package com.superdan.app.coolweather.component;
 
 import com.superdan.app.coolweather.modules.domain.VersionAPI;
-import com.superdan.app.coolweather.modules.adapter.WeatherAPI;
+import com.superdan.app.coolweather.modules.domain.WeatherAPI;
 
 import retrofit.http.GET;
 import retrofit.http.Query;
