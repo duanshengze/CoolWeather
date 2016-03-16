@@ -21,7 +21,7 @@ public class Weather implements Serializable {
     @SerializedName("status")
     public String status;
     @SerializedName("aqi")
-    public AqiEntity api;
+    public AqiEntity aqi;
     @SerializedName("now")
     public NowEntity now;
     @SerializedName("daily_forecast")
@@ -83,10 +83,10 @@ public class Weather implements Serializable {
      */
 
     public static class AqiEntity implements Serializable {
-        @SerializedName("city")
-        CityEntity city;
+        @SerializedName("city")public CityEntity city;
 
-        protected static class CityEntity implements Serializable {
+
+        public static class CityEntity implements Serializable {
             @SerializedName("aqi")
             public String api;
             @SerializedName("co")
@@ -182,38 +182,38 @@ public class Weather implements Serializable {
      },
      */
     public static class DailyForecastEntity implements Serializable{
-        @SerializedName("date") String date;
-        @SerializedName("astro")AstroEntity astro;
-        @SerializedName("cond")CondEntity cond;
-        @SerializedName("hum")String hum;
-        @SerializedName("pcpn")String pcpn;
-        @SerializedName("pop")String pop;
-        @SerializedName("pres")String pres;
-        @SerializedName("tmp")TmpEntity tmp;
-        @SerializedName("vis")String vis;
-        @SerializedName("wind")WindEntity wind;
+        @SerializedName("date") public String date;
+        @SerializedName("astro")public AstroEntity astro;
+        @SerializedName("cond")public CondEntity cond;
+        @SerializedName("hum")public String hum;
+        @SerializedName("pcpn")public String pcpn;
+        @SerializedName("pop")public String pop;
+        @SerializedName("pres")public String pres;
+        @SerializedName("tmp")public TmpEntity tmp;
+        @SerializedName("vis")public String vis;
+        @SerializedName("wind")public WindEntity wind;
 
 
         public static class AstroEntity implements Serializable{
-            @SerializedName("sr") String sr;
-            @SerializedName("ss")String ss;
+            @SerializedName("sr")public  String sr;
+            @SerializedName("ss")public String ss;
         }
         public static class  CondEntity implements  Serializable{
-            @SerializedName("code_d") String codeD;
-            @SerializedName("code_n")String codeN;
-            @SerializedName("txt_d")String txtD;
-            @SerializedName("txt_n")String txtN;
+            @SerializedName("code_d")public  String codeD;
+            @SerializedName("code_n")public String codeN;
+            @SerializedName("txt_d")public String txtD;
+            @SerializedName("txt_n")public String txtN;
         }
         public static class TmpEntity implements Serializable{
-            @SerializedName("max")String max;
-            @SerializedName("min")String min;
+            @SerializedName("max")public String max;
+            @SerializedName("min")public String min;
 
         }
         public static class  WindEntity implements Serializable{
-            @SerializedName("deg")String deg;
-            @SerializedName("dir")String dir;
-            @SerializedName("sc")String sc;
-            @SerializedName("spd")String spd;
+            @SerializedName("deg")public String deg;
+            @SerializedName("dir")public String dir;
+            @SerializedName("sc")public String sc;
+            @SerializedName("spd")public String spd;
 
         }
 
@@ -235,17 +235,17 @@ public class Weather implements Serializable {
      */
 
     public static class HourlyForecastEntity implements Serializable{
-        @SerializedName("date") String date;
-        @SerializedName("hum")String hum;
-        @SerializedName("pop")String pop;
-        @SerializedName("pres")String pres;
-        @SerializedName("tmp")String tmp;
-        @SerializedName("wind")WindEntity wind;
+        @SerializedName("date")public  String date;
+        @SerializedName("hum")public String hum;
+        @SerializedName("pop")public String pop;
+        @SerializedName("pres")public String pres;
+        @SerializedName("tmp")public String tmp;
+        @SerializedName("wind")public WindEntity wind;
         public static class  WindEntity implements  Serializable{
-            @SerializedName("deg")String deg;
-            @SerializedName("dir")String dir;
-            @SerializedName("sc")String sc;
-            @SerializedName("spd")String spd;
+            @SerializedName("deg")public String deg;
+            @SerializedName("dir")public String dir;
+            @SerializedName("sc")public String sc;
+            @SerializedName("spd")public String spd;
 
         }
 
@@ -287,40 +287,40 @@ public class Weather implements Serializable {
 
     public static  class  SuggestionEntity implements Serializable{
 
-        @SerializedName("comf")ComfEntity comf;
-        @SerializedName("cw")CwEntity cw;
-        @SerializedName("drsg")DrsgEntity drsg;
-        @SerializedName("flu")FluEntity flu;
-        @SerializedName("sport")SportEntity sport;
-        @SerializedName("trav")TravEntity trav;
-        @SerializedName("uv")UvEntity uv;
+        @SerializedName("comf")public ComfEntity comf;
+        @SerializedName("cw")public CwEntity cw;
+        @SerializedName("drsg")public DrsgEntity drsg;
+        @SerializedName("flu")public FluEntity flu;
+        @SerializedName("sport")public SportEntity sport;
+        @SerializedName("trav")public TravEntity trav;
+        @SerializedName("uv")public UvEntity uv;
 
         public static class ComfEntity implements  Serializable{
-            @SerializedName("brf")String brf;
-            @SerializedName("txt")String txt;
+            @SerializedName("brf")public String brf;
+            @SerializedName("txt")public String txt;
         }
         public static class CwEntity implements  Serializable{
-            @SerializedName("brf")String brf;
-            @SerializedName("txt")String txt;
+            @SerializedName("brf")public String brf;
+            @SerializedName("txt")public String txt;
         }
         public static class DrsgEntity implements  Serializable{
-            @SerializedName("brf")String brf;
-            @SerializedName("txt")String txt;
+            @SerializedName("brf")public String brf;
+            @SerializedName("txt")public String txt;
         }
         public static class FluEntity implements  Serializable{
-            @SerializedName("brf")String brf;
-            @SerializedName("txt")String txt;
+            @SerializedName("brf")public String brf;
+            @SerializedName("txt")public String txt;
         }
         public static class SportEntity implements  Serializable{
-            @SerializedName("brf")String brf;
-            @SerializedName("txt")String txt;
+            @SerializedName("brf")public String brf;
+            @SerializedName("txt")public String txt;
         }
         public static class TravEntity implements  Serializable{
-            @SerializedName("brf")String brf;
-            @SerializedName("txt")String txt;
+            @SerializedName("brf")public String brf;
+            @SerializedName("txt")public String txt;
         }public static class UvEntity implements  Serializable{
-            @SerializedName("brf")String brf;
-            @SerializedName("txt")String txt;
+            @SerializedName("brf")public String brf;
+            @SerializedName("txt")public String txt;
         }
 
 

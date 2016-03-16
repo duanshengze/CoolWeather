@@ -70,7 +70,7 @@
                 android:layout_marginRight="12dp"
                 android:textColor="#BDBDBD"
                 android:textSize="12sp"
-                android:text="PM:57"
+                android:text="PM25: 57"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
