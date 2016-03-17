@@ -39,7 +39,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     private Setting mSetting;
 
     private int hourSize;
-    private int foreSize;
+    private int forecastSize;
 
     public WeatherAdapter(Context context, Weather weatherData) {
         mContext = context;
@@ -47,7 +47,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         mWeatherData = weatherData;
         mSetting = Setting.getsInstance();
         hourSize=mWeatherData.hourlyForecast.size();
-        foreSize=mWeatherData.dailyForecast.size();
+        forecastSize=mWeatherData.dailyForecast.size();
 
     }
 
@@ -147,11 +147,43 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
         if (holder instanceof  ForecastViewHolder){
             try{
-
                 ForecastViewHolder forecastViewHolder=(ForecastViewHolder)holder;
 
+                for(int i=0;i<forecastSize;i++){
+                    switch (i){
+                        case  0:forecastViewHolder.forecastDate[0].setText("今天");
+                            break;
+                        case  1:forecastViewHolder.forecastDate[1].setText("明天");
+                            break;
+                        default:
+                            forecastViewHolder.forecastDate[i].setText(dayForWeek(mWeatherData.dailyForecast.get(i).date));
+                            break;
+                    }
 
 
+                    Weather.DailyForecastEntity dailyForecastEntity=mWeatherData.dailyForecast.get(i);
+                    //温度图标
+                    Glide.with(mContext)
+                            .load(mSetting.getInt(dailyForecastEntity.cond.txtD,R.mipmap.none))
+                            .crossFade()
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)
+                            .into(forecastViewHolder.forecastIcon[i]);
+                    //最高 最低温度
+                    forecastViewHolder.forecastTemp[i].setText(dailyForecastEntity.tmp.min+"° "+
+                    dailyForecastEntity.tmp.max+"°");
+                    //天气信息
+                    forecastViewHolder.forecastTxt[i].setText(
+                            dailyForecastEntity.cond.txtD+"。 最高"
+                            +dailyForecastEntity.wind.sc+" "
+                            +dailyForecastEntity.wind.dir+" "
+                            +dailyForecastEntity.wind.spd+" km/h "
+                            +"降水几率 "+dailyForecastEntity.pop+" % 。"
+                    );
+
+
+
+
+                }
 
             }catch (Exception e){
 
@@ -248,16 +280,16 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     class ForecastViewHolder extends RecyclerView.ViewHolder {
         private LinearLayout forecastLinear;
 
-        private TextView[] forecastDate = new TextView[foreSize];
-        private TextView[] forecastTemp = new TextView[foreSize];
-        private TextView[] forecastTxt = new TextView[foreSize];
-        private ImageView[] forecastIcon = new ImageView[foreSize];
+        private TextView[] forecastDate = new TextView[forecastSize];
+        private TextView[] forecastTemp = new TextView[forecastSize];
+        private TextView[] forecastTxt = new TextView[forecastSize];
+        private ImageView[] forecastIcon = new ImageView[forecastSize];
 
 
         public ForecastViewHolder(View itemView) {
             super(itemView);
             forecastLinear = (LinearLayout) itemView.findViewById(R.id.forecast_linear);
-            for (int i = 0; i < foreSize; i++) {
+            for (int i = 0; i < forecastSize; i++) {
                 View view = mLayoutInflater.inflate(R.layout.item_forecast_line, null);
                 forecastDate[i] = (TextView) view.findViewById(R.id.forecast_date);
                 forecastTemp[i] = (TextView) view.findViewById(R.id.forecast_temp);
