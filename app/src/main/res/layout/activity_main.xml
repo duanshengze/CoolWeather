@@ -42,7 +42,7 @@
                     app:layout_scrollFlags="scroll|enterAlwaysCollapsed" />
 
                 <android.support.v7.widget.Toolbar
-                    android:id="@+id/toobar"
+                    android:id="@+id/toolbar"
                     android:layout_width="?attr/actionBarSize"
                     android:layout_height="match_parent"
                     app:layout_collapseMode="pin"
