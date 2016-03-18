@@ -33,6 +33,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.superdan.app.coolweather.R;
 import com.superdan.app.coolweather.base.BaseActivity;
 import com.superdan.app.coolweather.common.Util;
+import com.superdan.app.coolweather.component.RetrofitSingleton;
 import com.superdan.app.coolweather.modules.adapter.WeatherAdapter;
 import com.superdan.app.coolweather.modules.domain.Setting;
 import com.superdan.app.coolweather.modules.domain.Weather;
@@ -222,7 +223,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             @Override
             public void onError(Throwable e) {
-
+                RetrofitSingleton.disposeFailureInfo(e,MainActivity.this,fab);
+                new RefreshHandler().sendEmptyMessage(LOADED);
             }
 
             @Override
@@ -231,11 +233,21 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             }
         };
 
-
-
-
     }
 
+/**
+ * 从本地获取
+ */
+private void fetchDataByCache(Observer<Weather>observer){
+
+
+
+    Weather weather=null;
+
+
+
+
+}
 
 
 
