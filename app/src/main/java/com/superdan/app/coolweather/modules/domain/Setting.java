@@ -13,6 +13,8 @@ public class Setting {
     public static final String CHANGE_ICONS="change_icons";//切换图标
     public static  final String CLEAR_CACHE="clear_cache";//清除缓存
     public static  final String  AUTO_UPDATE="change_update_time";//自动更新时长
+    public static  final String CITY_NAME="城市";
+
     public static  final  String  HOUR="小时";//当前小时
     public static  final String  HOUR_SELECT="hour_select";//设置更新频率的联动-需要改进
     public static final String API_TOKEN="c4a4e9ab87db9edf8d8d0039f2fbbca8";//fir.im api_token

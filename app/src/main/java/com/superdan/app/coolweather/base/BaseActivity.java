@@ -14,14 +14,14 @@ import com.superdan.app.coolweather.modules.domain.Setting;
  * Created by Administrator on 2016/3/14.
  */
 public class BaseActivity extends AppCompatActivity {
-    public ACache acache;
+    public ACache mACache;
 
     public Setting mSetting=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        acache=ACache.get(BaseActivity.this);
+        mACache=ACache.get(BaseActivity.this);
         mSetting=Setting.getsInstance();
 
         /**
