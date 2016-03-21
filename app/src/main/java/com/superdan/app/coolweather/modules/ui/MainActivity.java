@@ -1,10 +1,8 @@
 package com.superdan.app.coolweather.modules.ui;
 
-import android.annotation.TargetApi;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -23,6 +21,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -38,12 +37,17 @@ import com.superdan.app.coolweather.component.RetrofitSingleton;
 import com.superdan.app.coolweather.modules.adapter.WeatherAdapter;
 import com.superdan.app.coolweather.modules.domain.Setting;
 import com.superdan.app.coolweather.modules.domain.Weather;
+import com.superdan.app.coolweather.modules.domain.WeatherAPI;
 import com.superdan.app.coolweather.modules.listener.HidingScrollListener;
 
 import java.util.Calendar;
 
 import rx.Observable;
 import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
 
 /**
  * Created by dsz on 16/3/16.
@@ -88,6 +92,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         setContentView(R.layout.activity_main);
         initView();
         initDrawer();
+        initIcon();
+        fetchData();
     }
 
     /**
@@ -120,39 +126,41 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             collapsingToolbarLayout.setContentScrimColor(ContextCompat.getColor(this, R.color.colorSunset));
             setStatusBarColorForKitKat(R.color.colorSunset);
 
-            //fab
-            fab = (FloatingActionButton) findViewById(R.id.fab);
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    //showFabDialog
-                    showFabDialog();
-                }
-            });
-
-            CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
-            final int fabBottomMargin = lp.bottomMargin;
-            //recyclerview
-            mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-            mRecyclerView.setHasFixedSize(true);
-            mRecyclerView.addOnScrollListener(new HidingScrollListener() {
-                @Override
-                public void onHide() {
-                    fab.animate()
-                            .translationY(fab.getHeight() + fabBottomMargin);
-                }
-
-                @Override
-                public void onShow() {
-                    fab.animate().translationY(0).setInterpolator(new DecelerateInterpolator(2)).start();
-                }
-            });
-
-
         }
+        //fab
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                //showFabDialog
+                showFabDialog();
+            }
+        });
+
+        CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) fab.getLayoutParams();
+        final int fabBottomMargin = lp.bottomMargin;
+        //recyclerview
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.addOnScrollListener(new HidingScrollListener() {
+            @Override
+            public void onHide() {
+                fab.animate()
+                        .translationY(fab.getHeight() + fabBottomMargin)
+                        .setInterpolator(new AccelerateInterpolator(2))
+                        .start();
+            }
+
+            @Override
+            public void onShow() {
+                fab.animate().
+                        translationY(0).
+                        setInterpolator(new DecelerateInterpolator(2))
+                        .start();
+            }
+        });
 
     }
 
@@ -187,6 +195,30 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
 
 
+    /**
+     * 初始化Icon
+     */
+    private void initIcon(){
+        if(mSetting.getInt(Setting.CHANGE_ICONS,0)==0){
+            mSetting.putInt("未知",R.mipmap.none);
+            mSetting.putInt("晴",R.mipmap.type_one_sunny);
+            mSetting.putInt("阴",R.mipmap.type_one_cloudy);
+            mSetting.putInt("多云",R.mipmap.type_one_cloudy);
+            mSetting.putInt("少云",R.mipmap.type_one_cloudy);
+            mSetting.putInt("晴转多云",R.mipmap.type_one_cloudytosunny);
+            mSetting.putInt("小雨",R.mipmap.type_one_light_rain);
+            mSetting.putInt("中雨",R.mipmap.type_one_middle_rain);
+            mSetting.putInt("大雨",R.mipmap.type_one_heavy_rain);
+            mSetting.putInt("阵雨",R.mipmap.type_one_thunderstorm);
+            mSetting.putInt("雷阵雨", R.mipmap.type_one_thunderstorm);
+            mSetting.putInt("霾", R.mipmap.type_one_fog);
+            mSetting.putInt("雾", R.mipmap.type_one_fog);
+
+        }
+
+
+
+    }
     private void showFabDialog() {
 
         new AlertDialog.Builder(MainActivity.this).setTitle("为ta点赞")
@@ -215,8 +247,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
      */
 
     private void fetchData() {
-
-
         observer = new Observer<Weather>() {
             @Override
             public void onCompleted() {
@@ -231,10 +261,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
             @Override
             public void onNext(Weather weather) {
+                mProgressBar.setVisibility(View.INVISIBLE);
                 new RefreshHandler().sendEmptyMessage(LOADED);
+                collapsingToolbarLayout.setTitle(weather.basic.city);
+                mAdapter=new WeatherAdapter(MainActivity.this,weather);
+                mRecyclerView.setAdapter(mAdapter);
             }
         };
-
+        fetchDataByCache(observer);
     }
 
     /**
@@ -248,16 +282,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             weather = (Weather) mACache.getAsObject(WEATHER_DATA);
         }catch (Exception e){
 
-            PLog.e(TAG,e);
+            PLog.e(TAG,e.toString());
         }
          if (weather!=null){
 
              Observable.just(weather).distinct().subscribe(observer);
          }else {
 
-
              fetchDataByNetWork(observer);
-
          }
 
 
@@ -282,6 +314,31 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                                 .replace("地区","")
                                 .replace("盟","");
         }
+        RetrofitSingleton.getApiService(this)
+                .mWeatherAPI(cityName,Setting.KEY)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter(new Func1<WeatherAPI, Boolean>() {
+                    @Override
+                    public Boolean call(WeatherAPI weatherAPI) {
+                        return weatherAPI.mHeWeatherDataService30s.get(0).status.equals("ok");
+                    }
+                })
+                .map(new Func1<WeatherAPI, Weather>() {
+
+
+                    @Override
+                    public Weather call(WeatherAPI weatherAPI) {
+                        return weatherAPI.mHeWeatherDataService30s.get(0);
+                    }
+                })
+                .doOnNext(new Action1<Weather>() {
+                    @Override
+                    public void call(Weather weather) {
+                        mACache.put(WEATHER_DATA,weather,mSetting.getInt(Setting.AUTO_UPDATE,1)*Setting.ONE_HOUR);//默认一小时
+                    }
+                })
+                .subscribe(observer);
 
     }
 
@@ -293,7 +350,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public void onRefresh() {
-
+        fetchDataByNetWork(observer);
     }
 
 

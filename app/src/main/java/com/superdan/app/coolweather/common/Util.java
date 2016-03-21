@@ -22,13 +22,7 @@ public class Util {
             if(networkInfo!=null){
 
                 return  networkInfo.isAvailable();
-
-
             }
-
-
-
-
 
         }
 

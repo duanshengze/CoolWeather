@@ -14,14 +14,18 @@ import java.util.concurrent.Executors;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
+import retrofit.RxJavaCallAdapterFactory;
 
 /**
  * Created by dsz on 16/3/17.
  */
 public class RetrofitSingleton {
     private static ApiInterface apiService=null;
+
     private static Retrofit retrofit=null;
+
     private static OkHttpClient okHttpClient=null;
+
     private static final String TAG=RetrofitSingleton.class.getSimpleName();
     private static Context context;
 
@@ -36,13 +40,14 @@ public class RetrofitSingleton {
         retrofit=new Retrofit.Builder().addConverterFactory(GsonConverterFactory.create(gson))
                                         .baseUrl(ApiInterface.HOST)
                                         .callbackExecutor(executor)
-                                        .build();
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
         apiService=retrofit.create(ApiInterface.class);
 
     }
 
     public static ApiInterface getApiService(Context context){
-        if(apiService!=null)return apiService;
+        if(apiService!=null) return apiService;
         init(context);
         return getApiService(context);
 
@@ -74,8 +79,6 @@ public class RetrofitSingleton {
         String info=t.toString();
         if(info.contains("GaiException")||info.contains("SocketTimeoutException")
                 ||info.contains("UnknownHostException")){
-
-
             Snackbar.make(view,"呜呜呜，(′⌒`)~~",Snackbar.LENGTH_LONG).show();
 
         }else {

@@ -4,6 +4,8 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Environment;
 
+import com.superdan.app.coolweather.component.RetrofitSingleton;
+
 /**
  * Created by Administrator on 2016/3/14.
  */
@@ -18,6 +20,8 @@ public class BaseApplication extends Application {
         mAppContext=getApplicationContext();
 
         //TODO 初始化retrofit
+
+        RetrofitSingleton.init(getApplicationContext());
 
         if(getApplicationContext().getExternalCacheDir()!=null
                 &&existSDCard()){
