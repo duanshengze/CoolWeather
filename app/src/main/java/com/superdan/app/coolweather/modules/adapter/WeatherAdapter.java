@@ -174,6 +174,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                     //天气信息
                     forecastViewHolder.forecastTxt[i].setText(
                             dailyForecastEntity.cond.txtD+"。 最高"
+                                    +dailyForecastEntity.tmp.max+" ℃。"
                             +dailyForecastEntity.wind.sc+" "
                             +dailyForecastEntity.wind.dir+" "
                             +dailyForecastEntity.wind.spd+" km/h "
@@ -346,26 +347,26 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
         String week="";
         dayForWeek=c.get(Calendar.DAY_OF_WEEK);
         switch (dayForWeek){
-            case 0:
-                week="星期日";
+            case Calendar.SUNDAY:
+                week ="星期日";
                 break;
-            case 1:
-                week="星期一";
+            case Calendar.MONDAY:
+                week = "星期一";
                 break;
-            case 2:
-                week="星期二";
+            case Calendar.TUESDAY:
+                week = "星期二";
                 break;
-            case 3:
-                week="星期三";
+            case Calendar.WEDNESDAY:
+                week = "星期三";
                 break;
-            case 4:
-                week="星期四";
+            case Calendar.THURSDAY:
+                week = "星期四";
                 break;
-            case 5:
-                week="星期五";
+            case Calendar.FRIDAY:
+                week = "星期五";
                 break;
-            case 6:
-                week="星期六";
+            case Calendar.SATURDAY:
+                week = "星期六";
                 break;
 
 

@@ -305,7 +305,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
       */
     private void fetchDataByNetWork(Observer<Weather>observer){
 
-        String cityName=mSetting.getString(Setting.CITY_NAME,"北京");
+        String cityName=mSetting.getString(Setting.CITY_NAME,"孝感");
         if (cityName!=null){
 
             cityName=cityName.replace("市","")
@@ -346,6 +346,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case  R.id.nav_set:
+
+
+
+        }
+
         return false;
     }
 
@@ -362,6 +369,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
        }else {
            if((System.currentTimeMillis()-exitTime)>2000){
                Snackbar.make(fab,"再按一次退出程序",Snackbar.LENGTH_SHORT).show();
+               exitTime=System.currentTimeMillis();
            }else {
                finish();
            }
