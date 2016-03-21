@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -85,7 +86,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private Observer<Weather> observer;
 
-
+    private long exitTime=0;//记录第一次点击的时间
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -221,8 +222,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     }
     private void showFabDialog() {
 
-        new AlertDialog.Builder(MainActivity.this).setTitle("为ta点赞")
-                .setMessage("去gitub给作者个star，鼓励下作者O(∩_∩)O哈哈~")
+        new AlertDialog.Builder(MainActivity.this).setTitle("为我点赞")
+                .setMessage("去github给段段个star，鼓励下作者O(∩_∩)O哈哈~")
                 .setPositiveButton("好的", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -353,6 +354,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         fetchDataByNetWork(observer);
     }
 
+    @Override
+    public void onBackPressed() {
+       if(drawer.isDrawerOpen(GravityCompat.START)){
+
+           drawer.closeDrawer(GravityCompat.START);
+       }else {
+           if((System.currentTimeMillis()-exitTime)>2000){
+               Snackbar.make(fab,"再按一次退出程序",Snackbar.LENGTH_SHORT).show();
+           }else {
+               finish();
+           }
+
+       }
+    }
 
     class RefreshHandler extends Handler {
 

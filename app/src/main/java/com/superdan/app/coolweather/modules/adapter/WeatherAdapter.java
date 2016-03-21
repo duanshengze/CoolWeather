@@ -326,7 +326,7 @@ public class WeatherAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
             sportTxt = (TextView) itemView.findViewById(R.id.sport_txt);
             travelBrief = (TextView) itemView.findViewById(R.id.travel_brief);
             travelTxt = (TextView) itemView.findViewById(R.id.travel_txt);
-            fluBrief = (TextView) itemView.findViewById(R.id.travel_brief);
+            fluBrief = (TextView) itemView.findViewById(R.id.flu_brief);
             fluTxt = (TextView) itemView.findViewById(R.id.flu_txt);
         }
     }
