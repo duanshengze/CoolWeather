@@ -40,6 +40,7 @@ import com.superdan.app.coolweather.modules.domain.Setting;
 import com.superdan.app.coolweather.modules.domain.Weather;
 import com.superdan.app.coolweather.modules.domain.WeatherAPI;
 import com.superdan.app.coolweather.modules.listener.HidingScrollListener;
+import com.superdan.app.coolweather.modules.ui.setting.SettingActivity;
 
 import java.util.Calendar;
 
@@ -214,7 +215,6 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             mSetting.putInt("雷阵雨", R.mipmap.type_one_thunderstorm);
             mSetting.putInt("霾", R.mipmap.type_one_fog);
             mSetting.putInt("雾", R.mipmap.type_one_fog);
-
         }
 
 
@@ -348,7 +348,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     public boolean onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case  R.id.nav_set:
-
+            Intent intentSetting=new Intent(MainActivity.this,SettingActivity.class);
 
 
         }
