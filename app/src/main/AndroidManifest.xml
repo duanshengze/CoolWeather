@@ -30,8 +30,6 @@
             android:name=".modules.ui.setting.SettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.transpant">
-
-
         </activity>
 
     </application>

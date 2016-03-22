@@ -37,6 +37,6 @@ public class SettingActivity extends BaseActivity {
             toolbar.setBackgroundColor(ContextCompat.getColor(this,R.color.colorSunset));
             setStatusBarColor(R.color.colorSunset);
         }
-        getFragmentManager().beginTransaction().replace(R.id.fragmentlayout,new S)
+        getFragmentManager().beginTransaction().replace(R.id.fragmentlayout,new SettingFragment()).commit();
     }
 }

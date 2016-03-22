@@ -349,6 +349,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         switch (item.getItemId()){
             case  R.id.nav_set:
             Intent intentSetting=new Intent(MainActivity.this,SettingActivity.class);
+                startActivity(intentSetting);
 
 
         }
