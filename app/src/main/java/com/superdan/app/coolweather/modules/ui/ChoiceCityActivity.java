@@ -1,10 +1,14 @@
 package com.superdan.app.coolweather.modules.ui;
 
+import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.RecyclerView;
 import android.widget.ProgressBar;
 
+import com.superdan.app.coolweather.R;
 import com.superdan.app.coolweather.base.BaseActivity;
+import com.superdan.app.coolweather.modules.adapter.CityAdapter;
+import com.superdan.app.coolweather.modules.domain.City;
 import com.superdan.app.coolweather.modules.domain.Province;
 
 import java.util.ArrayList;
@@ -30,7 +34,14 @@ public class ChoiceCityActivity extends BaseActivity {
 
     private List<Province>provinceList;
 
-    private List<City>
+    private List<City> cityList;
+
+    private CityAdapter mAdapter;
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_choice_city);
+    }
 }

@@ -59,6 +59,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     private final String TAG = MainActivity.class.getSimpleName();
 
+    private final int REQUST_CITY=111;
+
     private final static int LOADING = 1;
 
     private final static int LOADED = 2;
@@ -350,11 +352,20 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             case  R.id.nav_set:
             Intent intentSetting=new Intent(MainActivity.this,SettingActivity.class);
                 startActivity(intentSetting);
-
+            break;
+            case R.id.nav_city:
+                startActivityForResult(new Intent(MainActivity.this,ChoiceCityActivity.class),REQUST_CITY);
+                break;
 
         }
 
         return false;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
     }
 
     @Override

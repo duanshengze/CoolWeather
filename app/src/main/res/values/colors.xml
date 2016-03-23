@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-
+    <color name="colorCityDay">#5c8392</color>
 
     <color name="colorSunrise">#0d4a6a</color>
     <color name="colorSunset">#201d45</color>
