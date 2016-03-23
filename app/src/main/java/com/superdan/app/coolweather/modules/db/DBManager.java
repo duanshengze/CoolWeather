@@ -3,6 +3,7 @@ package com.superdan.app.coolweather.modules.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Environment;
+import android.util.Log;
 
 import com.superdan.app.coolweather.R;
 
@@ -40,14 +41,23 @@ public class DBManager {
         this.database = database;
     }
 
+
+
+   public void openDatabase(){
+
+        Log.e(TAG,DB_PATH+"/"+DB_NAME);
+        this.database=this.openDatabase(DB_PATH+"/"+DB_NAME);
+
+
+    }
     private SQLiteDatabase openDatabase(String dbfile) {
-        if (new File(dbfile).exists()) {
+        if (!(new File(dbfile).exists())) {
             try {
                 InputStream is = context.getResources().openRawResource(R.raw.china_city);
                 FileOutputStream fos = new FileOutputStream(dbfile);
                 byte[] buffer = new byte[BUFFER_SIZE];
                 int count = 0;
-                while ((count = is.read(buffer)) != 0) {
+                while ((count = is.read(buffer)) > 0) {
                     fos.write(buffer, 0, count);
                 }
                 fos.close();

@@ -31,7 +31,7 @@
                 app:expandedTitleMarginBottom="24dp"
                 android:fitsSystemWindows="true"
                 app:expandedTitleMarginStart="48dp"
-                app:contentScrim="?attr/colorPrimary"
+
                >
 
                 <ImageView
@@ -65,7 +65,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/fab_margin"
-
             app:borderWidth="0dp"
             app:layout_anchor="@id/coord"
             app:layout_anchorGravity="end|bottom"
