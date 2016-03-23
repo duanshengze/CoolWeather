@@ -62,6 +62,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     public static final int REQUST_CITY=111;
 
+    public static final int RESULT_OK=222;
+
     private final static int LOADING = 1;
 
     private final static int LOADED = 2;
@@ -367,10 +369,10 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (resultCode== Activity.RESULT_OK){
+        if (resultCode== RESULT_OK){
             if (requestCode==REQUST_CITY){
                 String cityName=data.getStringExtra(Setting.CITY_NAME);
-                mSetting.getString(Setting.CITY_NAME,cityName);
+                mSetting.putString(Setting.CITY_NAME,cityName);
                 fetchDataByNetWork(observer);
             }
 

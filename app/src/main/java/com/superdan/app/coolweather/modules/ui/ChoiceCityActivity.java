@@ -115,7 +115,7 @@ public class ChoiceCityActivity extends BaseActivity {
                     Intent intent = new Intent();
                     String cityName = selectCity.cityName;
                     intent.putExtra(Setting.CITY_NAME, cityName);
-                    setResult(MainActivity.REQUST_CITY, intent);
+                    setResult(MainActivity.RESULT_OK, intent);
                     finish();
 
                 }
