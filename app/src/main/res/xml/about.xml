@@ -31,7 +31,7 @@
             android:title="关于我"
             >
             <Preference
-
+                android:key="blog"
                 android:title="个人博客"
                 android:summary="duanshengze.github.io"/>
             <Preference

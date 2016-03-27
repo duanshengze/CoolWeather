@@ -31,10 +31,15 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.transpant">
         </activity>
-        <activity android:name=".modules.ui.ChoiceCityActivity"
-            android:screenOrientation="portrait">
-
+        <activity
+            android:name=".modules.ui.ChoiceCityActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.transpant">
         </activity>
+        <activity android:name=".modules.ui.about.AboutActivity"
+            android:screenOrientation="portrait"
+                  android:theme="@style/AppTheme.transpant"
+            />
     </application>
 
 </manifest>

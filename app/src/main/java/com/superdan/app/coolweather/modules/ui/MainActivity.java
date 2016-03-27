@@ -41,6 +41,7 @@ import com.superdan.app.coolweather.modules.domain.Setting;
 import com.superdan.app.coolweather.modules.domain.Weather;
 import com.superdan.app.coolweather.modules.domain.WeatherAPI;
 import com.superdan.app.coolweather.modules.listener.HidingScrollListener;
+import com.superdan.app.coolweather.modules.ui.about.AboutActivity;
 import com.superdan.app.coolweather.modules.ui.setting.SettingActivity;
 
 import java.util.Calendar;
@@ -358,6 +359,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             break;
             case R.id.nav_city:
                 startActivityForResult(new Intent(MainActivity.this,ChoiceCityActivity.class),REQUST_CITY);
+                break;
+            case  R.id.nav_about:
+                startActivity(new Intent(MainActivity.this, AboutActivity.class));
                 break;
 
         }

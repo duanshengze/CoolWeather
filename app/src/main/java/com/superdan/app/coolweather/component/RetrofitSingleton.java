@@ -79,7 +79,7 @@ public class RetrofitSingleton {
         String info=t.toString();
         if(info.contains("GaiException")||info.contains("SocketTimeoutException")
                 ||info.contains("UnknownHostException")){
-            Snackbar.make(view,"呜呜呜，(′⌒`)~~",Snackbar.LENGTH_LONG).show();
+            Snackbar.make(view,"呜呜呜，无网(′⌒`)~~",Snackbar.LENGTH_LONG).show();
 
         }else {
             Toast.makeText(context,t.getMessage(),Toast.LENGTH_LONG).show();
