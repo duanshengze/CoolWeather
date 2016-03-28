@@ -26,7 +26,7 @@ import rx.schedulers.Schedulers;
 public class CheckVersion {
 
     private  static  String TAG=CheckVersion.class.getSimpleName();
-
+    private static Setting mSetting=Setting.getsInstance();
 
     public static void checkVersion(final Context context,final View view){
         RetrofitSingleton.getApiService(context)
@@ -86,10 +86,11 @@ public class CheckVersion {
                         context.startActivity(intent);
                     }
                 })
-        .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+        .setNegativeButton("忽略此版本", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
+                mSetting.putString(Setting.IGNORE_VERSION,Setting.IGNORE);
             }
         }).show()
         ;

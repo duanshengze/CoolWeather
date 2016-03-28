@@ -19,7 +19,9 @@ public class Setting {
     public static  final String  HOUR_SELECT="hour_select";//设置更新频率的联动-需要改进
     public static final String API_TOKEN="c4a4e9ab87db9edf8d8d0039f2fbbca8";//fir.im api_token
     public static  String KEY="2c1227470d484679ba5cf914afc3929a";//和风天气的KEY
-
+    public static final String IGNORE_VERSION="ignore_version";
+    public static final String IGNORE="ignore";
+    public static final String NO_IGNORE="no_ignore";
     public static  int ONE_HOUR=60*60;
     private static  Setting sInstance;
     private SharedPreferences mPrefs;
