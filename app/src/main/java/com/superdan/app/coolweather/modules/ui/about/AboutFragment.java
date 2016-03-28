@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.View;
 
 import com.superdan.app.coolweather.R;
+import com.superdan.app.coolweather.common.CheckVersion;
 import com.superdan.app.coolweather.common.Util;
 
 /**
@@ -125,6 +126,7 @@ public class AboutFragment extends PreferenceFragment implements Preference.OnPr
             Uri uri=Uri.parse(github);
             viewIntoWeb(uri);
         }else if(key.equals(CHECK)){
+            CheckVersion.checkVersion(getActivity(),getView());
             Snackbar.make(getView(),"正在检查更新...",Snackbar.LENGTH_SHORT).show();
         }else if(key.equals(EMAIL)){
             copyToClipboard(getView(),preference.getSummary().toString());
@@ -148,8 +150,6 @@ public class AboutFragment extends PreferenceFragment implements Preference.OnPr
         ClipData clipData=ClipData.newPlainText("msg",info);
         manager.setPrimaryClip(clipData);
         Snackbar.make(view,"已经复制到剪切板啦( •̀ .̫ •́ )✧",Snackbar.LENGTH_SHORT).show();
-
-
     }
 
 

@@ -2,7 +2,19 @@
 <manifest package="com.superdan.app.coolweather"
           xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+
+    <!--用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!--用于访问GPS定位-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <!--用于访问wifi网络信息，wifi信息会用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+    <!--这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"></uses-permission>
+
+    <!--用于读取手机当前的状态-->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <!--检查网络链接-->
@@ -16,6 +28,13 @@
         android:hardwareAccelerated="true"
         android:theme="@style/AppTheme">
 
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="5090492281f51798132e7e2a700bc1e1"
+            />
+
+        <service android:name="com.amap.api.location.APSService"/>
         <activity android:name=".modules.ui.MainActivity"
 
             android:screenOrientation="portrait"

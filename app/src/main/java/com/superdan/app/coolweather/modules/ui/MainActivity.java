@@ -21,6 +21,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -29,10 +30,15 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
+import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
+import com.amap.api.location.AMapLocationListener;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.superdan.app.coolweather.R;
 import com.superdan.app.coolweather.base.BaseActivity;
+import com.superdan.app.coolweather.common.CheckVersion;
 import com.superdan.app.coolweather.common.PLog;
 import com.superdan.app.coolweather.common.Util;
 import com.superdan.app.coolweather.component.RetrofitSingleton;
@@ -57,7 +63,7 @@ import rx.schedulers.Schedulers;
  * Created by dsz on 16/3/16.
  */
 public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener,
-        SwipeRefreshLayout.OnRefreshListener {
+        SwipeRefreshLayout.OnRefreshListener,AMapLocationListener {
 
     private final String TAG = MainActivity.class.getSimpleName();
 
@@ -94,6 +100,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
     private Observer<Weather> observer;
 
     private long exitTime=0;//记录第一次点击的时间
+
+    private boolean isLoaction=false;
+
+
+    private AMapLocationClient mLocationClient=null;
+    private AMapLocationClientOption mLocationOption=null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -102,6 +115,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         initDrawer();
         initIcon();
         fetchData();
+
+        if(Util.isNetworkConnected(this)){
+            CheckVersion.checkVersion(this,fab);
+            initLocation();
+        }
+
+
     }
 
     /**
@@ -223,8 +243,27 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             mSetting.putInt("雾", R.mipmap.type_one_fog);
         }
 
+    }
 
 
+
+    private void initLocation(){
+        mLocationClient=new AMapLocationClient(getApplicationContext());
+        mLocationClient.setLocationListener(this);
+        mLocationOption=new AMapLocationClientOption();
+        //设置定位模式为高精度模式，Battery_Saving为低功耗模式，Device_Sensors是仅设备模式
+        mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Battery_Saving);
+      //设置是否返回地址信息（默认返回地址信息）
+        mLocationOption.setNeedAddress(true);
+        //设置是否只定位一次,默认为false
+        mLocationOption.setOnceLocation(false);
+        //设置是否允许模拟位置,默认为false，不允许模拟位置
+        mLocationOption.setMockEnable(false);
+        //设置定位间隔 单位毫秒
+        mLocationOption.setInterval(2*1000);
+        mLocationClient.setLocationOption(mLocationOption);
+        //启动定位
+        mLocationClient.startLocation();
     }
     private void showFabDialog() {
 
@@ -311,7 +350,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
       */
     private void fetchDataByNetWork(Observer<Weather>observer){
 
-        String cityName=mSetting.getString(Setting.CITY_NAME,"孝感");
+        String cityName=mSetting.getString(Setting.CITY_NAME,"北京");
         if (cityName!=null){
 
             cityName=cityName.replace("市","")
@@ -406,6 +445,43 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
        }
     }
 
+    @Override
+    public void onLocationChanged(AMapLocation aMapLocation) {
+        if(aMapLocation!=null){
+            if(aMapLocation.getErrorCode()==0){
+                aMapLocation.getLocationType();
+                mSetting.putString(Setting.CITY_NAME, aMapLocation.getCity());
+                showLocationDiag(aMapLocation.getCity());
+                Log.e(TAG,"定位地址"+aMapLocation.getCity());
+            }
+        }else {
+            //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+            Log.e("AmapError","location Error, ErrCode:"
+                    + aMapLocation.getErrorCode() + ", errInfo:"
+                    + aMapLocation.getErrorInfo());
+
+        }
+    }
+
+    private void showLocationDiag(String loaction){
+        new AlertDialog.Builder(this).setTitle("定位信息")
+                .setMessage("定位到当前位置为："+loaction+"， 是否切换该地区")
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MainActivity.this.onRefresh();
+                    }
+                }).show();
+
+    }
+
+
     class RefreshHandler extends Handler {
 
         @Override
@@ -430,9 +506,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                     }
                     break;
 
-
             }
 
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLocationClient.onDestroy();
     }
 }

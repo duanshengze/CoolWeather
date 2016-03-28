@@ -18,7 +18,7 @@ public interface ApiInterface {
 
     //在Retrofit2.0中 我们还可以在@Url里面定义完整的URL：这种情况下Base URl会被忽略。
 
-    @GET("http://api.fir.im/apps/latest/5630e5f1f2fc425c52000006")
+    @GET("http://api.fir.im/apps/latest/56f8b3b900fc7466fb000016")
     Observable<VersionAPI> mVersionAPI(@Query("api_token")String api_token);
 
 

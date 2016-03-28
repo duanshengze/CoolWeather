@@ -26,6 +26,20 @@ public class Util {
     }
 
 
+    public static  int getVersionCode(Context context){
+
+        PackageManager manager=context.getPackageManager();
+        try {
+            PackageInfo info=manager.getPackageInfo(context.getPackageName(),0);
+            int version=info.versionCode;
+            return version;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+    }
+
     /**
      *关注 是否联网
      * @param context
@@ -36,10 +50,8 @@ public class Util {
             ConnectivityManager connectivityManager=(ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo=connectivityManager.getActiveNetworkInfo();
             if(networkInfo!=null){
-
                 return  networkInfo.isAvailable();
             }
-
         }
 
 
