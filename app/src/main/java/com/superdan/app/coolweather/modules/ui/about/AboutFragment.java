@@ -35,7 +35,7 @@ public class AboutFragment extends PreferenceFragment implements Preference.OnPr
 
     private Preference mIntroduction;
     private Preference mVersion;
-    private Preference mCheckVersion;
+    private Preference mCheck;
     private Preference mShare;
     private Preference mStar;
     private Preference mEncourage;
@@ -43,6 +43,7 @@ public class AboutFragment extends PreferenceFragment implements Preference.OnPr
     private Preference mGithub;
     private Preference mEmail;
 
+    private CheckVersion mCheckVersion;
 
 
 
@@ -51,10 +52,10 @@ public class AboutFragment extends PreferenceFragment implements Preference.OnPr
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.about);
-
+        mCheckVersion=new CheckVersion(getActivity());
         mIntroduction=findPreference(INTRODUCTION);
         mVersion=findPreference(CURRENT_VERSION);
-        mCheckVersion=findPreference(CHECK);
+        mCheck =findPreference(CHECK);
         mShare=findPreference(SHARE);
         mStar=findPreference(STAR);
         mEncourage=findPreference(ENCOURAGE);
@@ -64,7 +65,7 @@ public class AboutFragment extends PreferenceFragment implements Preference.OnPr
 
         mIntroduction.setOnPreferenceClickListener(this);
         mVersion.setOnPreferenceClickListener(this);
-        mCheckVersion.setOnPreferenceClickListener(this);
+        mCheck.setOnPreferenceClickListener(this);
         mShare.setOnPreferenceClickListener(this);
         mStar.setOnPreferenceClickListener(this);
         mEncourage.setOnPreferenceClickListener(this);
@@ -126,7 +127,7 @@ public class AboutFragment extends PreferenceFragment implements Preference.OnPr
             Uri uri=Uri.parse(github);
             viewIntoWeb(uri);
         }else if(key.equals(CHECK)){
-            CheckVersion.checkVersion(getActivity(),getView());
+            mCheckVersion.checkVersion(getView());
             Snackbar.make(getView(),"正在检查更新...",Snackbar.LENGTH_SHORT).show();
         }else if(key.equals(EMAIL)){
             copyToClipboard(getView(),preference.getSummary().toString());

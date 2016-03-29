@@ -107,10 +107,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 //    private AMapLocationClientOption mLocationOption=null;
     private CheckLocation mCheckLocation;
 
+    private CheckVersion mCheckVersion;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mCheckVersion=new CheckVersion(this);
+
         initView();
         initDrawer();
         initIcon();
@@ -118,7 +122,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
         if(Util.isNetworkConnected(this)){
             if(!Setting.IGNORE.equals(mSetting.getString(Setting.IGNORE_VERSION,Setting.NO_IGNORE))){
-                CheckVersion.checkVersion(this,fab);
+                mCheckVersion.checkVersion(fab);
             }
 
             initLocation();
@@ -510,5 +514,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
             mCheckLocation.destoryLocation();
         }
 
+        if (mCheckVersion!=null){
+            //注销广播
+            mCheckVersion.unregisterReceiver();
+        }
     }
 }

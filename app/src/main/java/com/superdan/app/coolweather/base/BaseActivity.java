@@ -8,6 +8,7 @@ import android.view.WindowManager;
 
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.superdan.app.coolweather.common.ACache;
+import com.superdan.app.coolweather.common.CheckVersion;
 import com.superdan.app.coolweather.modules.domain.Setting;
 
 /**
@@ -18,11 +19,13 @@ public class BaseActivity extends AppCompatActivity {
 
     public Setting mSetting=null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mACache=ACache.get(BaseActivity.this);
         mSetting=Setting.getsInstance();
+
 
         /**
          *我们通过判断当前sdk_int大于4.4(kitkat),则通过代码的形式设置status bar为透明
