@@ -260,13 +260,13 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
                         aMapLocation.getLocationType();
                         showLocationDiag(aMapLocation);
                         Log.e(TAG, "定位地址: " + aMapLocation.getCity());
-                    }
-                } else {
-                    //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
-                    Log.e("AmapError", "location Error, ErrCode:"
-                            + aMapLocation.getErrorCode() + ", errInfo:"
-                            + aMapLocation.getErrorInfo());
+                    }else {
+                        //显示错误信息ErrCode是错误码，errInfo是错误信息，详见错误码表。
+                        Log.e("AmapError", "location Error, ErrCode:"
+                                + aMapLocation.getErrorCode() + ", errInfo:"
+                                + aMapLocation.getErrorInfo());
 
+                    }
                 }
             }
         });

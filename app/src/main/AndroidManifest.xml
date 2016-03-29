@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest package="com.superdan.app.coolweather"
           xmlns:android="http://schemas.android.com/apk/res/android">
-
-
     <!--用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <!--用于访问GPS定位-->
@@ -31,14 +29,14 @@
 
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="5090492281f51798132e7e2a700bc1e1"
+            android:value="f791161ee42ce719b97277f738a7c4bf"
             />
 
         <service android:name="com.amap.api.location.APSService"/>
         <activity android:name=".modules.ui.MainActivity"
 
             android:screenOrientation="portrait"
-            android:label="酷天气"
+            android:label="@string/app_name"
             android:theme="@style/AppTheme.transpant">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
